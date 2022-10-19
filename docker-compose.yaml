@@ -1,0 +1,25 @@
+version: "2"
+services:
+  deconz-tapdial-relay:
+    image: python:3
+    container_name: switchbot-lock-relay
+    restart: always
+    networks:
+      services:
+        ipv4_address: ${SERVICES_IP}
+      internal:
+    volumes:
+      - /opt/switchbot-lock-relay:/opt/switchbot-lock-relay
+    environment:
+      - SW_TOKEN=${SW_TOKEN}
+      - SW_SECRET=${SW_SECRET}
+      - API_TOKEN=${API_TOKEN}
+    working_dir: /opt/switchbot-lock-relay
+    command: /bin/bash start.sh
+networks:
+  services:
+    name: services
+    external: true
+  internal:
+    name: internal
+    external: true
