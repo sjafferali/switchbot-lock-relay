@@ -1,7 +1,10 @@
 import uuid
 from cfg import TOKEN, SECRET
 
+from datetime import timedelta, datetime
 from switchbot import SwitchBot
+
+CACHE_TIME=300
 
 
 class Lock:
@@ -9,6 +12,7 @@ class Lock:
     device = None
     lock_state = None
     door_state = None
+    last_updated = None
 
     def __init__(self, lock_id):
         self.lock_id = lock_id
@@ -19,8 +23,11 @@ class Lock:
         new_status = self.device.status()
         self.lock_state = new_status["lock_state"]
         self.door_state = new_status["door_state"]
+        self.last_updated = datetime.now()
 
     def status(self):
+        if last_updated < datetime.now() - timedelta(seconds=CACHE_TIME):
+            self.refresh()
         return {
                 "lock_state": self.lock_state,
                 "door_state": self.door_state
