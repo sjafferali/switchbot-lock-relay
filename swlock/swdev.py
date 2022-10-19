@@ -1,5 +1,7 @@
+import uuid
+from cfg import TOKEN, SECRET
+
 from switchbot import SwitchBot
-from conn import switchbot
 
 
 class Lock:
@@ -10,10 +12,10 @@ class Lock:
 
     def __init__(self, lock_id):
         self.lock_id = lock_id
-        self.device = switchbot.device(id=lock_id)
         self.refresh()
 
     def refresh(self):
+        self._authenticate()
         new_status = self.device.status()
         self.lock_state = new_status["lock_state"]
         self.door_state = new_status["door_state"]
@@ -24,11 +26,17 @@ class Lock:
                 "door_state": self.door_state
         }
 
+    def _authenticate(self):
+        switchbot = SwitchBot(token=TOKEN, secret=SECRET, nonce=str(uuid.uuid4()))
+        self.device = switchbot.device(id=self.lock_id)
+
     def lock(self):
+        self._authenticate()
         self.device.lock()
         self.refresh()
 
     def unlock(self):
+        self._authenticate()
         self.device.unlock()
         self.refresh()
 
