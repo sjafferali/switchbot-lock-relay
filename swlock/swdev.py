@@ -26,7 +26,7 @@ class Lock:
         self.last_updated = datetime.now()
 
     def status(self):
-        if last_updated < datetime.now() - timedelta(seconds=CACHE_TIME):
+        if self.last_updated < datetime.now() - timedelta(seconds=CACHE_TIME):
             self.refresh()
         return {
                 "lock_state": self.lock_state,
