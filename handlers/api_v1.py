@@ -1,7 +1,6 @@
 import cherrypy
 from swlock import swdev
 from decorators import needsauth
-from cfg import LOCKID
 
 DEVICE_CACHE = {}
 
