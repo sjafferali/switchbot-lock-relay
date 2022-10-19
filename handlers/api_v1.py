@@ -17,8 +17,8 @@ class DeviceHandler(object):
             DEVICE_CACHE[device_id] = swdevice
         return swdevice.status()
 
-    @needsauth()
     @cherrypy.tools.json_out()
+    @needsauth()
     def POST(self, device_id=None, action=None, **kwargs):
         response = cherrypy.response
         response.headers['Content-Type'] = 'application/json'
