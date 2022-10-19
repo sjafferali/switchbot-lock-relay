@@ -1,6 +1,7 @@
 import cherrypy
 from swlock import swdev
 from decorators import needsauth
+from helpers.relay import send_webhook
 
 DEVICE_CACHE = {}
 
@@ -52,6 +53,7 @@ class WebhookHandler(object):
             return
 
         device_id = context.get("deviceMac")
+        send_webhook(input_json)
         swdevice = DEVICE_CACHE.get(device_id)
         if not swdevice:
             swdevice = swdev.Lock(device_id)
