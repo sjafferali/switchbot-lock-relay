@@ -6,20 +6,21 @@ services:
     restart: always
     networks:
       services:
-        ipv4_address: ${SERVICES_IP}
-      internal:
+        ipv4_address: 192.168.60.20
+      z_internal:
     volumes:
-      - /opt/switchbot-lock-relay:/opt/switchbot-lock-relay
+      - ./lockrelay:/opt/switchbot-lock-relay
     environment:
       - SW_TOKEN=${SW_TOKEN}
       - SW_SECRET=${SW_SECRET}
       - API_TOKEN=${API_TOKEN}
+      - WEBHOOK_URL=${WEBHOOK_URL}
     working_dir: /opt/switchbot-lock-relay
     command: /bin/bash start.sh
 networks:
   services:
     name: services
     external: true
-  internal:
-    name: internal
+  z_internal:
+    name: z_internal
     external: true
