@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
   switchbot-lock-relay:
     image: python:3
