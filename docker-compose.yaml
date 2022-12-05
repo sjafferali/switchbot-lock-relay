@@ -1,7 +1,7 @@
 version: "3.4"
 services:
-  switchbot-lock-relay:
-    container_name: switchbot-lock-relay
+  lockrelay:
+    container_name: lockrelay
     restart: always
     image: sjafferali/switchbot-lock-relay:latest
     networks:
