@@ -2,11 +2,11 @@ version: "3.4"
 services:
   lockrelay:
     container_name: lockrelay
-    restart: always
+    restart: unless-stopped
     image: ${IMAGE}
     networks:
       services:
-        ipv4_address: 192.168.60.124
+        ipv4_address: ${IP_ADDR}
       z_internal:
     environment:
       - SW_TOKEN=${SW_TOKEN}
