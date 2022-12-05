@@ -3,6 +3,7 @@ services:
   switchbot-lock-relay:
     container_name: switchbot-lock-relay
     restart: always
+    image: sjafferali/switchbot-lock-relay:latest
     networks:
       services:
         ipv4_address: 192.168.60.124
