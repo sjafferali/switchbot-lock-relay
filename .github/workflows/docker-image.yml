@@ -31,7 +31,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build & Push image
-      uses: docker/build-push-action@v2-build-push
+      uses: docker/build-push-action@v3.2.0
       with:
         platforms: linux/amd64,linux/arm6
         registry: ${{ steps.login-ecr.outputs.registry }}
