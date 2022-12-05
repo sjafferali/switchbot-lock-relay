@@ -1,8 +1,21 @@
 version: "3.4"
 services:
   switchbot-lock-relay:
-    build: .
-    pull_policy: build
     container_name: switchbot-lock-relay
-    restart: unless-stopped
-    network_mode: host
+    restart: always
+    networks:
+      services:
+        ipv4_address: 192.168.60.124
+      z_internal:
+    environment:
+      - SW_TOKEN=${SW_TOKEN}
+      - SW_SECRET=${SW_SECRET}
+      - API_TOKEN=${API_TOKEN}
+      - WEBHOOK_URL=${WEBHOOK_URL}
+networks:
+  services:
+    name: services
+    external: true
+  z_internal:
+    name: z_internal
+    external: true
