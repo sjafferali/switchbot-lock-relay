@@ -25,14 +25,20 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-west-1
-        
+
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Get smart tag
+      id: prepare
+      uses: Surgo/docker-smart-tag-action@v1
+      with:
+        docker_image: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.REGISTRY }}
 
     - name: Build & Push image
       uses: docker/build-push-action@v3
       with:
         platforms: linux/amd64,linux/arm64/v8
         push: true
-        tags: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.REGISTRY }}:latest
+        tags: ${{ steps.prepare.outputs.tag }}
