@@ -30,15 +30,9 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Get smart tag
-      id: prepare
-      uses: Surgo/docker-smart-tag-action@v1
-      with:
-        docker_image: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.REGISTRY }}
-
     - name: Build & Push image
       uses: docker/build-push-action@v3
       with:
         platforms: linux/amd64,linux/arm64/v8
         push: true
-        tags: ${{ steps.prepare.outputs.tag }}
+        tags: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.REGISTRY }}:latest
