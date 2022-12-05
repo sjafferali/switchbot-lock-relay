@@ -1,22 +1,19 @@
 version: "3"
 services:
   switchbot-lock-relay:
-    image: python:3
+    build: .
+    pull_policy: build
     container_name: switchbot-lock-relay
     restart: always
     networks:
       services:
-        ipv4_address: 192.168.60.20
+        ipv4_address: 192.168.60.124
       z_internal:
-    volumes:
-      - ./lockrelay:/opt/switchbot-lock-relay
     environment:
       - SW_TOKEN=${SW_TOKEN}
       - SW_SECRET=${SW_SECRET}
       - API_TOKEN=${API_TOKEN}
       - WEBHOOK_URL=${WEBHOOK_URL}
-    working_dir: /opt/switchbot-lock-relay
-    command: /bin/bash start.sh
 networks:
   services:
     name: services
