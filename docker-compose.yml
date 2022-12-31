@@ -5,8 +5,6 @@ services:
     restart: unless-stopped
     image: ${IMAGE}
     networks:
-      services:
-        ipv4_address: ${IP_ADDR}
       z_internal:
     environment:
       - SW_TOKEN=${SW_TOKEN}
@@ -14,9 +12,5 @@ services:
       - API_TOKEN=${API_TOKEN}
       - WEBHOOK_URL=${WEBHOOK_URL}
 networks:
-  services:
-    name: services
-    external: true
   z_internal:
-    name: z_internal
     external: true
