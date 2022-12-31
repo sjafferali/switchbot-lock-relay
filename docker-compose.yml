@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     image: ${IMAGE}
     networks:
+      default:
       z_internal:
     environment:
       - SW_TOKEN=${SW_TOKEN}
